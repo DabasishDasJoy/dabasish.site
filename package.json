@@ -1,0 +1,22 @@
+{
+  "name": "backend-portfolio",
+  "version": "1.0.0",
+  "description": "Portfolio website for a backend software engineer",
+  "scripts": {
+    "start": "http-server -p 8000 -o",
+    "serve": "http-server -p 8000"
+  },
+  "keywords": [
+    "portfolio",
+    "backend",
+    "nestjs",
+    "nodejs",
+    "golang"
+  ],
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "http-server": "^14.1.1"
+  }
+}
+
