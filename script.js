@@ -118,40 +118,46 @@ window.addEventListener('scroll', () => {
     });
 });
 
-// Add fade-in animation on scroll
-const fadeElements = document.querySelectorAll('.project-card, .skill-category, .highlight-item, .blog-card');
-
-const fadeObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry, index) => {
-        if (entry.isIntersecting) {
-            setTimeout(() => {
-                entry.target.style.opacity = '1';
-                entry.target.style.transform = 'translateY(0)';
-            }, index * 100);
-            fadeObserver.unobserve(entry.target);
-        }
+// Initialize all modals and animations when DOM is ready
+document.addEventListener('DOMContentLoaded', () => {
+    console.log('DOM Content Loaded - Initializing modals and animations');
+    
+    // Add fade-in animation on scroll
+    const fadeElements = document.querySelectorAll('.project-card, .skill-category, .highlight-item, .blog-card, .experience-item, .education-item, .competitive-item');
+    
+    const fadeObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, index * 100);
+                fadeObserver.unobserve(entry.target);
+            }
+        });
+    }, {
+        threshold: 0.1,
+        rootMargin: '0px 0px -50px 0px'
     });
-}, {
-    threshold: 0.1,
-    rootMargin: '0px 0px -50px 0px'
-});
+    
+    fadeElements.forEach(element => {
+        element.style.opacity = '0';
+        element.style.transform = 'translateY(30px)';
+        element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+        fadeObserver.observe(element);
+    });
+    
+    // Blog Modal Functionality
+    const blogModal = document.getElementById('blogModal');
+    const blogModalBody = document.getElementById('blogModalBody');
+    const blogModalClose = document.querySelector('.blog-modal-close');
+    const blogReadMoreButtons = document.querySelectorAll('.blog-read-more');
+    
+    console.log('Blog modal elements:', { blogModal, blogModalBody, blogModalClose, buttonsCount: blogReadMoreButtons.length });
 
-fadeElements.forEach(element => {
-    element.style.opacity = '0';
-    element.style.transform = 'translateY(30px)';
-    element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-    fadeObserver.observe(element);
-});
-
-// Blog Modal Functionality
-const blogModal = document.getElementById('blogModal');
-const blogModalBody = document.getElementById('blogModalBody');
-const blogModalClose = document.querySelector('.blog-modal-close');
-const blogReadMoreButtons = document.querySelectorAll('.blog-read-more');
-
-// Blog content data
-const blogPosts = {
-    1: {
+    // Blog content data
+    const blogPosts = {
+        1: {
         title: 'Building Scalable REST APIs with NestJS',
         date: 'March 15, 2024',
         category: 'NestJS',
@@ -276,14 +282,23 @@ const blogPosts = {
             </ul>
         `
     }
-};
+    };
 
-// Open modal function
-function openBlogModal(postId) {
-    const post = blogPosts[postId];
-    if (!post) return;
-    
-    blogModalBody.innerHTML = `
+    // Open blog modal function
+    function openBlogModal(postId) {
+        console.log('openBlogModal called with postId:', postId);
+        if (!blogModal || !blogModalBody) {
+            console.error('Blog modal elements not initialized', { blogModal, blogModalBody });
+            return;
+        }
+        const post = blogPosts[postId];
+        if (!post) {
+            console.error('Blog post not found:', postId, 'Available posts:', Object.keys(blogPosts));
+            return;
+        }
+        console.log('Opening blog modal for:', post.title);
+        
+        blogModalBody.innerHTML = `
         <h2>${post.title}</h2>
         <div class="blog-meta">
             <span class="blog-date">
@@ -295,41 +310,223 @@ function openBlogModal(postId) {
         <div class="blog-content-text">
             ${post.content}
         </div>
-    `;
-    
-    blogModal.classList.add('active');
-    document.body.style.overflow = 'hidden';
-}
+        `;
+        
+        blogModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
 
-// Close modal function
-function closeBlogModal() {
-    blogModal.classList.remove('active');
-    document.body.style.overflow = '';
-}
+    // Close blog modal function
+    function closeBlogModal() {
+        if (blogModal) {
+            blogModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
 
-// Add event listeners
-blogReadMoreButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const postId = button.getAttribute('data-modal-id');
-        openBlogModal(postId);
+    // Add event listeners for blog modal
+    if (blogReadMoreButtons && blogReadMoreButtons.length > 0) {
+        console.log('Adding event listeners to', blogReadMoreButtons.length, 'blog buttons');
+        blogReadMoreButtons.forEach((button, index) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const postId = button.getAttribute('data-modal-id');
+                console.log('Blog button clicked:', index, 'postId:', postId);
+                if (postId) {
+                    openBlogModal(parseInt(postId));
+                }
+            });
+        });
+    } else {
+        console.error('No blog read more buttons found!');
+    }
+
+    if (blogModalClose) {
+        blogModalClose.addEventListener('click', closeBlogModal);
+    }
+
+    // Close blog modal when clicking outside
+    if (blogModal) {
+        blogModal.addEventListener('click', (e) => {
+            if (e.target === blogModal) {
+                closeBlogModal();
+            }
+        });
+    }
+
+    // Project Modal Functionality
+    const projectModal = document.getElementById('projectModal');
+    const projectModalBody = document.getElementById('projectModalBody');
+    const projectModalClose = document.querySelector('.project-modal-close');
+    const projectViewDetailsButtons = document.querySelectorAll('.project-view-details');
+
+    console.log('Project modal elements:', { projectModal, projectModalBody, projectModalClose, buttonsCount: projectViewDetailsButtons.length });
+
+    // Check if elements exist
+    if (!projectModal || !projectModalBody) {
+        console.error('Project modal elements not found');
+    }
+
+    if (!blogModal || !blogModalBody) {
+        console.error('Blog modal elements not found');
+    }
+
+    // Project content data
+    const projectDetails = {
+        1: {
+        title: 'Pattern50',
+        type: 'Company Project',
+        description: 'SaaS platform for software development agencies to manage clients, development teams, and payments to ensure efficient project delivery.',
+        responsibilities: [
+            'Built scalable RESTful APIs for authentication, user management, payment processing, invoicing, and reporting modules using NestJS and TypeScript',
+            'Integrated AI-powered assistant using OpenAI to assist users with business queries and auto-generate reports',
+            'Optimized database performance through efficient indexing and MongoDB query optimization',
+            'Implemented Redis-based caching and task queues to improve response times and ensure reliable payment processing',
+            'Worked on auto-generating invoices and integrating with payment gateways'
+        ],
+        technologies: ['NestJS', 'MongoDB', 'Redis', 'OpenAI', 'Docker', 'AWS', 'CI/CD', 'Stripe', 'Zoho Books', 'ArgoCD'],
+        status: 'In Production',
+        impact: 'Serving a few active agencies with improved performance and reliability'
+    },
+    2: {
+        title: 'HomeLedger',
+        type: 'Company Project',
+        description: 'Mobile app backend for homeowners to efficiently manage and maintain their properties, clients, handle payments, and track tasks with reminders.',
+        responsibilities: [
+            'Implemented secure, scalable REST APIs using Express.js and PostgreSQL',
+            'Maintained backend functionalities deployed using AWS Lambda (serverless)',
+            'Optimized API responses by implementing efficient connection pooling, pagination, and selective data retrieval',
+            'Led development of user management, property handling, task tracking, subscription, and notification systems with real-time updates'
+        ],
+        technologies: ['Express.js', 'PostgreSQL', 'AWS Lambda', 'Serverless Framework'],
+        status: 'In Production',
+        impact: 'Improved performance and reduced payload size through optimization techniques'
+    },
+    3: {
+        title: 'ToriTorkari Bazar Backend',
+        type: 'Personal Project',
+        description: 'Scalable backend services for an online grocery e-commerce platform using Golang and MySQL, demonstrating versatility across different technology stacks.',
+        responsibilities: [
+            'Implemented secure authentication system using JWT-based authentication and authorization mechanisms',
+            'Designed product, order, and payment management APIs with efficient database schema design',
+            'Performed query optimization for improved performance',
+            'Built RESTful APIs following best practices for scalability'
+        ],
+        technologies: ['Golang', 'MySQL', 'Echo', 'GORM'],
+        status: 'Completed',
+        impact: 'Showcases backend development skills across different technology stacks',
+        github: 'https://github.com/DabasishDasJoy'
+    }
+    };
+
+    // Open project modal function
+    function openProjectModal(projectId) {
+        console.log('openProjectModal called with projectId:', projectId);
+        if (!projectModal || !projectModalBody) {
+            console.error('Project modal elements not initialized', { projectModal, projectModalBody });
+            return;
+        }
+        const project = projectDetails[projectId];
+        if (!project) {
+            console.error('Project not found:', projectId, 'Available projects:', Object.keys(projectDetails));
+            return;
+        }
+        console.log('Opening project modal for:', project.title);
+        
+        let techTags = project.technologies.map(tech => `<span class="project-tech-tag">${tech}</span>`).join('');
+        let responsibilitiesList = project.responsibilities.map(resp => `<li>${resp}</li>`).join('');
+        
+        let githubLink = '';
+        if (project.github) {
+            githubLink = `<a href="${project.github}" target="_blank" class="project-github-link">
+                <i class="fab fa-github"></i> View on GitHub
+            </a>`;
+        }
+        
+        projectModalBody.innerHTML = `
+            <div class="project-modal-header">
+                <h2>${project.title}</h2>
+                <span class="project-type">${project.type}</span>
+            </div>
+            <div class="project-modal-description">
+                <p>${project.description}</p>
+            </div>
+            <div class="project-modal-section">
+                <h3>Key Responsibilities</h3>
+                <ul class="project-responsibilities">
+                    ${responsibilitiesList}
+                </ul>
+            </div>
+            <div class="project-modal-section">
+                <h3>Technologies Used</h3>
+                <div class="project-tech-tags">
+                    ${techTags}
+                </div>
+            </div>
+            <div class="project-modal-footer">
+                <span class="project-status">Status: ${project.status}</span>
+                ${githubLink}
+            </div>
+            ${project.impact ? `<div class="project-impact"><strong>Impact:</strong> ${project.impact}</div>` : ''}
+        `;
+        
+        projectModal.classList.add('active');
+        document.body.style.overflow = 'hidden';
+    }
+
+    // Close project modal function
+    function closeProjectModal() {
+        if (projectModal) {
+            projectModal.classList.remove('active');
+            document.body.style.overflow = '';
+        }
+    }
+
+    // Add event listeners for project modal
+    if (projectViewDetailsButtons && projectViewDetailsButtons.length > 0) {
+        console.log('Adding event listeners to', projectViewDetailsButtons.length, 'project buttons');
+        projectViewDetailsButtons.forEach((button, index) => {
+            button.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const projectId = button.getAttribute('data-modal-id');
+                console.log('Project button clicked:', index, 'projectId:', projectId);
+                if (projectId) {
+                    openProjectModal(parseInt(projectId));
+                }
+            });
+        });
+    } else {
+        console.error('No project view details buttons found!');
+    }
+
+    if (projectModalClose) {
+        projectModalClose.addEventListener('click', closeProjectModal);
+    }
+
+    // Close project modal when clicking outside
+    if (projectModal) {
+        projectModal.addEventListener('click', (e) => {
+            if (e.target === projectModal) {
+                closeProjectModal();
+            }
+        });
+    }
+
+    // Unified Escape key handler for both modals
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            if (blogModal && blogModal.classList.contains('active')) {
+                closeBlogModal();
+            }
+            if (projectModal && projectModal.classList.contains('active')) {
+                closeProjectModal();
+            }
+        }
     });
-});
 
-blogModalClose.addEventListener('click', closeBlogModal);
-
-// Close modal when clicking outside
-blogModal.addEventListener('click', (e) => {
-    if (e.target === blogModal) {
-        closeBlogModal();
-    }
-});
-
-// Close modal with Escape key
-document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && blogModal.classList.contains('active')) {
-        closeBlogModal();
-    }
-});
+}); // End DOMContentLoaded
 
 // Console message
 console.log('%c👋 Hello! Interested in collaborating?', 'font-size: 16px; font-weight: bold; color: #6366f1;');
