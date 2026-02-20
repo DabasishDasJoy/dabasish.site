@@ -1,13 +1,28 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Backend Software Engineer - NestJS, Node.js, Golang Developer Portfolio">
     <title>Backend Developer Portfolio</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        (function () {
+            var stored = localStorage.getItem('portfolio-theme');
+            var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+            var theme = stored === 'dark' || stored === 'light' ? stored : (prefersDark ? 'dark' : 'light');
+            document.documentElement.setAttribute('data-theme', theme);
+        })();
+    </script>
 </head>
+
 <body>
     <!-- Navigation -->
     <nav class="navbar">
@@ -22,8 +37,13 @@
                 <li><a href="#experience" class="nav-link">Experience</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#education" class="nav-link">Education</a></li>
+                <li><a href="#blog" class="nav-link">Blog</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
+            <button type="button" class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode">
+                <i class="fas fa-moon" aria-hidden="true" data-icon="dark"></i>
+                <i class="fas fa-sun" aria-hidden="true" data-icon="light"></i>
+            </button>
             <div class="hamburger">
                 <span></span>
                 <span></span>
@@ -41,10 +61,13 @@
                         <span class="greeting">Hello, I'm</span>
                         <span class="name">Dabasish Das Joy</span>
                     </h1>
-                    <p class="hero-subtitle">Backend Software Engineer | 2.5+ Years Experience</p>
+                    <p class="hero-subtitle">Backend Software Engineer | <span id="experienceYears">--</span> Years
+                        Experience</p>
                     <p class="hero-description">
-                        Experienced backend engineer specializing in building scalable RESTful APIs and microservices using 
-                        <strong>NestJS</strong>, <strong>Golang (Echo)</strong>, <strong>PostgreSQL</strong>, and <strong>MongoDB</strong>. 
+                        Experienced backend engineer specializing in building scalable RESTful APIs and microservices
+                        using
+                        <strong>Golang</strong>, <strong>NestJS</strong>, <strong>PostgreSQL</strong>, and
+                        <strong>MongoDB</strong>.
                         Passionate about optimizing application performance and delivering reliable backend systems.
                     </p>
                     <div class="hero-buttons">
@@ -69,20 +92,20 @@
                             <span class="dot dot-red"></span>
                             <span class="dot dot-yellow"></span>
                             <span class="dot dot-green"></span>
-                            <span class="code-title">dabasish.ts</span>
+                            <span class="code-title">dabasish.go</span>
                         </div>
-                        <pre><code><span class="code-keyword">class</span> <span class="code-class">BackendEngineer</span> {
-  <span class="code-keyword">async</span> <span class="code-function">build</span>() {
-    <span class="code-keyword">const</span> stack = [
-      <span class="code-string">'NestJS'</span>,
-      <span class="code-string">'Golang (Echo)'</span>,
-      <span class="code-string">'PostgreSQL'</span>,
-      <span class="code-string">'MongoDB'</span>,
-      <span class="code-string">'Redis'</span>,
-      <span class="code-string">'RabbitMQ'</span>,
-    ];
-    <span class="code-keyword">return</span> <span class="code-string">'Scalable APIs & Microservices'</span>;
-  }
+                        <pre><code><span class="code-keyword">package</span> main
+
+<span class="code-keyword">func</span> <span class="code-function">build</span>() <span class="code-keyword">string</span> {
+    stack := []<span class="code-keyword">string</span>{
+        <span class="code-string">"Golang"</span>,
+        <span class="code-string">"NestJS"</span>,
+        <span class="code-string">"PostgreSQL"</span>,
+        <span class="code-string">"MongoDB"</span>,
+        <span class="code-string">"Redis"</span>,
+        <span class="code-string">"RabbitMQ"</span>,
+    }
+    <span class="code-keyword">return</span> <span class="code-string">"Scalable APIs & Microservices"</span>
 }</code></pre>
                     </div>
                 </div>
@@ -100,39 +123,45 @@
             <div class="about-content">
                 <div class="about-text">
                     <p>
-                        Backend Software Engineer with 2.5 years of experience building scalable RESTful APIs and microservices 
-                        using Golang (Echo), Node.js (NestJS/Express), PostgreSQL, and MongoDB. I specialize in optimizing 
-                        application performance, database query optimization, and collaborating with cross-functional teams 
-                        in Agile environments to deliver reliable backend systems.
+                        I'm a Backend Software Engineer who builds scalable RESTful APIs and microservices with
+                        <strong>NestJS</strong>, <strong>Golang (Echo)</strong>, <strong>PostgreSQL</strong>, and
+                        <strong>MongoDB</strong>. I focus on performance—database tuning, caching, and clean
+                        architecture—and work closely with product and frontend teams in Agile setups to ship
+                        reliable
+                        systems on time.
                     </p>
                     <p>
-                        At 6Sense Technologies, I've contributed to 6+ diverse backend projects, working with modern technologies 
-                        like NestJS, TypeScript, RabbitMQ, and various databases. I enjoy mentoring junior developers and 
-                        implementing best practices for clean, maintainable code.
+                        I've contributed to 6+ backend projects at 6Sense Technologies and now work at Technonext,
+                        using stacks like TypeScript, RabbitMQ, Redis, and Docker. I care about maintainable code,
+                        clear APIs, and helping others grow—I've mentored junior developers and run hands-on
+                        sessions on backend best practices.
                     </p>
                     <div class="about-highlights">
                         <div class="highlight-item">
                             <i class="fas fa-code"></i>
                             <div>
                                 <h3>Clean Code</h3>
-                                <p>Writing maintainable and well-documented code</p>
+                                <p>Maintainable, well-documented, and testable backend code</p>
                             </div>
                         </div>
                         <div class="highlight-item">
                             <i class="fas fa-rocket"></i>
                             <div>
                                 <h3>Performance</h3>
-                                <p>Optimizing for speed and scalability</p>
+                                <p>Query optimization, caching, and scalable design</p>
                             </div>
                         </div>
                         <div class="highlight-item">
                             <i class="fas fa-shield-alt"></i>
                             <div>
                                 <h3>Security</h3>
-                                <p>Implementing best practices for secure applications</p>
+                                <p>Secure APIs and authentication best practices</p>
                             </div>
                         </div>
                     </div>
+                </div>
+                <div class="about-image">
+                    <img src="assets/my.png" alt="Dabasish Das Joy" class="about-profile-image">
                 </div>
             </div>
         </div>
@@ -169,7 +198,7 @@
                         </div>
                         <div class="skill-item">
                             <div class="skill-info">
-                                <span class="skill-name">Golang (Echo)</span>
+                                <span class="skill-name">Golang</span>
                                 <span class="skill-level">Advanced</span>
                             </div>
                             <div class="skill-bar">
@@ -275,12 +304,14 @@
                     <div class="project-header">
                         <i class="fas fa-folder"></i>
                         <div class="project-links">
-                            <a href="#" target="_blank" aria-label="Company Project"><i class="fas fa-briefcase"></i></a>
+                            <a href="#" target="_blank" aria-label="Company Project"><i
+                                    class="fas fa-briefcase"></i></a>
                         </div>
                     </div>
                     <h3 class="project-title">Pattern50</h3>
                     <p class="project-description">
-                        SaaS platform for software development agencies to manage clients, development teams, and payments.
+                        SaaS platform for software development agencies to manage clients, development teams, and
+                        payments.
                     </p>
                     <div class="project-footer">
                         <div class="project-tech">
@@ -300,12 +331,14 @@
                     <div class="project-header">
                         <i class="fas fa-folder"></i>
                         <div class="project-links">
-                            <a href="#" target="_blank" aria-label="Company Project"><i class="fas fa-briefcase"></i></a>
+                            <a href="#" target="_blank" aria-label="Company Project"><i
+                                    class="fas fa-briefcase"></i></a>
                         </div>
                     </div>
                     <h3 class="project-title">HomeLedger</h3>
                     <p class="project-description">
-                        Mobile app backend for homeowners to manage properties, clients, payments, and track tasks with reminders.
+                        Mobile app backend for homeowners to manage properties, clients, payments, and track tasks with
+                        reminders.
                     </p>
                     <div class="project-footer">
                         <div class="project-tech">
@@ -323,7 +356,8 @@
                     <div class="project-header">
                         <i class="fas fa-folder"></i>
                         <div class="project-links">
-                            <a href="https://github.com/DabasishDasJoy" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                            <a href="https://github.com/DabasishDasJoy" target="_blank" aria-label="GitHub"><i
+                                    class="fab fa-github"></i></a>
                         </div>
                     </div>
                     <h3 class="project-title">ToriTorkari Bazar Backend</h3>
@@ -359,16 +393,20 @@
                         <span class="experience-location">Dhaka, Bangladesh</span>
                     </div>
                     <div class="experience-description">
-                        <p>Developing and maintaining scalable backend systems and RESTful APIs using modern technologies. Contributing to the full software development lifecycle from design to deployment.</p>
+                        <p>Developing and maintaining scalable backend systems and RESTful APIs using modern
+                            technologies. Contributing to the full software development lifecycle from design to
+                            deployment.</p>
                         <ul class="experience-details">
                             <li>Designing and implementing robust backend services and APIs for web applications</li>
-                            <li>Collaborating with cross-functional teams to deliver high-quality software solutions</li>
+                            <li>Collaborating with cross-functional teams to deliver high-quality software solutions
+                            </li>
                             <li>Writing clean, maintainable code following best practices and coding standards</li>
                             <li>Participating in code reviews and contributing to technical decision-making</li>
                             <li>Working on continuous improvement of application performance and scalability</li>
                         </ul>
                         <div class="experience-tech">
-                            <strong>Technologies:</strong> NestJS, Node.js, TypeScript, PostgreSQL, MongoDB, Docker, AWS, Git, CI/CD
+                            <strong>Technologies:</strong> NestJS, Node.js, TypeScript, PostgreSQL, MongoDB, Docker,
+                            AWS, Git, CI/CD
                         </div>
                     </div>
                 </div>
@@ -376,21 +414,30 @@
                     <div class="experience-header">
                         <h3 class="experience-title">Junior Software Engineer</h3>
                         <span class="experience-company">6Sense Technologies</span>
-                        <span class="experience-date">April 2023 – Present</span>
+                        <span class="experience-date">April 2023 – November 2025</span>
                         <span class="experience-location">Dhaka, Bangladesh</span>
                     </div>
                     <div class="experience-description">
-                        <p>Contributing to 6+ diverse backend projects, building high-performance RESTful APIs and microservices using NestJS, TypeScript, RabbitMQ, and PostgreSQL/MongoDB/DynamoDB.</p>
+                        <p>Contributing to 6+ diverse backend projects, building high-performance RESTful APIs and
+                            microservices using NestJS, TypeScript, RabbitMQ, and PostgreSQL/MongoDB/DynamoDB.</p>
                         <ul class="experience-details">
-                            <li>Collaborated with frontend developers, product managers, and cross-functional teams in Agile development environment to deliver features on time</li>
-                            <li>Optimized application performance, reliability, and security by implementing database schema improvements, MongoDB aggregation pipelines, and Redis-based caching solutions</li>
-                            <li>Designed and maintained database schemas and integrations across PostgreSQL and MongoDB systems, implementing efficient indexing strategies</li>
-                            <li>Debugged, troubleshot, and resolved production issues in real-time environments, implementing monitoring solutions</li>
-                            <li>Worked closely with DevOps to containerize and deploy microservices using Docker, Kubernetes, and ArgoCD on AWS</li>
-                            <li>Mentored 3+ junior developers and conducted hands-on training sessions, fostering knowledge sharing</li>
+                            <li>Collaborated with frontend developers, product managers, and cross-functional teams in
+                                Agile development environment to deliver features on time</li>
+                            <li>Optimized application performance, reliability, and security by implementing database
+                                schema improvements, MongoDB aggregation pipelines, and Redis-based caching solutions
+                            </li>
+                            <li>Designed and maintained database schemas and integrations across PostgreSQL and MongoDB
+                                systems, implementing efficient indexing strategies</li>
+                            <li>Debugged, troubleshot, and resolved production issues in real-time environments,
+                                implementing monitoring solutions</li>
+                            <li>Worked closely with DevOps to containerize and deploy microservices using Docker,
+                                Kubernetes, and ArgoCD on AWS</li>
+                            <li>Mentored 3+ junior developers and conducted hands-on training sessions, fostering
+                                knowledge sharing</li>
                         </ul>
                         <div class="experience-tech">
-                            <strong>Technologies:</strong> NestJS, TypeScript, PostgreSQL, MongoDB, Redis, RabbitMQ, OpenAI, Zoho Books, Docker, AWS, Jest, CI/CD
+                            <strong>Technologies:</strong> NestJS, TypeScript, PostgreSQL, MongoDB, Redis, RabbitMQ,
+                            OpenAI, Zoho Books, Docker, AWS, Jest, CI/CD
                         </div>
                     </div>
                 </div>
@@ -440,7 +487,7 @@
             <div class="contact-content">
                 <div class="contact-info">
                     <p class="contact-description">
-                        I'm always open to discussing new projects, creative ideas, or opportunities 
+                        I'm always open to discussing new projects, creative ideas, or opportunities
                         to be part of your team. Feel free to reach out!
                     </p>
                     <div class="contact-details">
@@ -462,14 +509,16 @@
                             <i class="fab fa-github"></i>
                             <div>
                                 <h3>GitHub</h3>
-                                <a href="https://github.com/DabasishDasJoy" target="_blank">github.com/DabasishDasJoy</a>
+                                <a href="https://github.com/DabasishDasJoy"
+                                    target="_blank">github.com/DabasishDasJoy</a>
                             </div>
                         </div>
                         <div class="contact-item">
                             <i class="fab fa-linkedin"></i>
                             <div>
                                 <h3>LinkedIn</h3>
-                                <a href="https://linkedin.com/in/DabasishDasJoy" target="_blank">linkedin.com/in/DabasishDasJoy</a>
+                                <a href="https://linkedin.com/in/DabasishDasJoy"
+                                    target="_blank">linkedin.com/in/DabasishDasJoy</a>
                             </div>
                         </div>
                     </div>
@@ -514,7 +563,7 @@
                     </div>
                     <h3 class="blog-title">Building Scalable REST APIs with NestJS</h3>
                     <p class="blog-excerpt">
-                        Learn how to architect robust REST APIs using NestJS, including dependency injection, 
+                        Learn how to architect robust REST APIs using NestJS, including dependency injection,
                         modular design patterns, and best practices for building enterprise-grade applications.
                     </p>
                     <div class="blog-footer">
@@ -541,7 +590,7 @@
                     </div>
                     <h3 class="blog-title">Concurrency Patterns in Golang</h3>
                     <p class="blog-excerpt">
-                        Exploring goroutines, channels, and select statements to build highly concurrent 
+                        Exploring goroutines, channels, and select statements to build highly concurrent
                         applications. Deep dive into common concurrency patterns and how to avoid race conditions.
                     </p>
                     <div class="blog-footer">
@@ -568,7 +617,7 @@
                     </div>
                     <h3 class="blog-title">Microservices Communication Patterns</h3>
                     <p class="blog-excerpt">
-                        Understanding synchronous vs asynchronous communication, service mesh architecture, 
+                        Understanding synchronous vs asynchronous communication, service mesh architecture,
                         and implementing event-driven microservices with message brokers.
                     </p>
                     <div class="blog-footer">
@@ -595,7 +644,7 @@
                     </div>
                     <h3 class="blog-title">Database Optimization Strategies</h3>
                     <p class="blog-excerpt">
-                        Performance tuning techniques for PostgreSQL and MongoDB, including indexing strategies, 
+                        Performance tuning techniques for PostgreSQL and MongoDB, including indexing strategies,
                         query optimization, and connection pooling best practices.
                     </p>
                     <div class="blog-footer">
@@ -622,7 +671,7 @@
                     </div>
                     <h3 class="blog-title">JWT Authentication Best Practices</h3>
                     <p class="blog-excerpt">
-                        Implementing secure authentication with JWT tokens, including refresh token strategies, 
+                        Implementing secure authentication with JWT tokens, including refresh token strategies,
                         token rotation, and securing REST APIs from common vulnerabilities.
                     </p>
                     <div class="blog-footer">
@@ -649,7 +698,7 @@
                     </div>
                     <h3 class="blog-title">CI/CD Pipelines for Node.js Applications</h3>
                     <p class="blog-excerpt">
-                        Setting up automated testing, building, and deployment pipelines using GitHub Actions, 
+                        Setting up automated testing, building, and deployment pipelines using GitHub Actions,
                         Docker containerization, and Kubernetes deployment strategies.
                     </p>
                     <div class="blog-footer">
@@ -687,11 +736,11 @@
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
-            <p>&copy; 2024 Backend Developer Portfolio. Built with ❤️ for great code.</p>
+            <p>&copy; 2025 Dabasish Das Joy. Backend Developer Portfolio — built with care for great code.</p>
         </div>
     </footer>
 
     <script src="script.js"></script>
 </body>
-</html>
 
+</html>

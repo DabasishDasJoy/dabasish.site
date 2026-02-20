@@ -1,3 +1,33 @@
+// Theme Toggle (dark / light mode)
+const themeToggle = document.getElementById('themeToggle');
+const THEME_KEY = 'portfolio-theme';
+
+function getTheme() {
+    return document.documentElement.getAttribute('data-theme') || 'light';
+}
+
+function setTheme(theme) {
+    document.documentElement.setAttribute('data-theme', theme);
+    localStorage.setItem(THEME_KEY, theme);
+}
+
+if (themeToggle) {
+    themeToggle.addEventListener('click', function() {
+        var next = getTheme() === 'dark' ? 'light' : 'dark';
+        setTheme(next);
+    });
+}
+
+// Dynamic experience years (career started March 1, 2023)
+(function() {
+    var start = new Date(2023, 2, 1); // March 1, 2023 (month 0-indexed)
+    var now = new Date();
+    var years = (now - start) / (365.25 * 24 * 60 * 60 * 1000);
+    var display = years >= 1 ? (Math.floor(years * 10) / 10).toFixed(1) + '+' : '<1';
+    var el = document.getElementById('experienceYears');
+    if (el) el.textContent = display;
+})();
+
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
@@ -39,13 +69,11 @@ const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
-    
-    if (currentScroll > 100) {
-        navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+    if (currentScroll > 50) {
+        navbar.classList.add('scrolled');
     } else {
-        navbar.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)';
+        navbar.classList.remove('scrolled');
     }
-    
     lastScroll = currentScroll;
 });
 
