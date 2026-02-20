@@ -7,7 +7,8 @@
 
 :root {
     /* Light theme (default) */
-    --navbar-height: 70px; /* Will be dynamically updated by JS */
+    --navbar-height: 70px;
+    /* Will be dynamically updated by JS */
     --primary: #6366f1;
     --primary-dark: #4f46e5;
     --primary-glow: rgba(99, 102, 241, 0.35);
@@ -1761,7 +1762,7 @@ section {
     }
 
     .nav-actions {
-        gap: 0.25rem;
+        gap: 0.95rem;
     }
 
     .theme-toggle {
