@@ -31,6 +31,20 @@ if (themeToggle) {
 // Mobile Navigation Toggle
 const hamburger = document.querySelector('.hamburger');
 const navMenu = document.querySelector('.nav-menu');
+const navbar = document.querySelector('.navbar');
+
+// Set drawer top position based on actual navbar height
+function updateDrawerPosition() {
+    if (window.innerWidth <= 768 && navbar) {
+        const navbarHeight = navbar.offsetHeight;
+        // Set CSS custom property for navbar height - CSS will handle positioning
+        document.documentElement.style.setProperty('--navbar-height', `${navbarHeight}px`);
+    }
+}
+
+// Update on load and resize
+updateDrawerPosition();
+window.addEventListener('resize', updateDrawerPosition);
 
 hamburger.addEventListener('click', () => {
     navMenu.classList.toggle('active');
@@ -65,7 +79,6 @@ document.querySelectorAll('a[href^="#"]').forEach(anchor => {
 
 // Navbar background on scroll
 let lastScroll = 0;
-const navbar = document.querySelector('.navbar');
 
 window.addEventListener('scroll', () => {
     const currentScroll = window.pageYOffset;
